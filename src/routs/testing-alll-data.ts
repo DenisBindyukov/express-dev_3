@@ -1,5 +1,5 @@
 import {Request, Response, Router} from "express";
-import {videos} from './videos-router'
+import {videos} from './blogs-router'
 
 export const testingRouter = Router({});
 

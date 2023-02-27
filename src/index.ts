@@ -1,19 +1,27 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import {videosRouter} from "./routs/videos-router";
+import {blogsRouter} from "./routs/blogs-router";
 import {testingRouter} from "./routs/testing-alll-data";
+import {runDb} from "./repositories/db";
+import {postsRouter} from "./routs/posts-router";
 
 
 const app = express();
 const port = process.env.PORT || 5002;
 
 const jsonParserMiddleware = bodyParser.json();
-
 app.use(jsonParserMiddleware);
 
-app.use('/videos', videosRouter);
-app.use('/testing', testingRouter);
+app.use('/blogs', blogsRouter);
+app.use('/posts', postsRouter);
+app.use('/testing/all-data', testingRouter);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-})
+const startApp = async () => {
+    await runDb()
+    app.listen(port,  () => {
+        console.log(`App listening on port ${port}`);
+    })
+}
+
+startApp()
+
