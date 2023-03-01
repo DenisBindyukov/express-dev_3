@@ -1,9 +1,10 @@
 import {uuid} from 'uuidv4';
-import {blogsCollection} from "./db";
+import {blogsCollection} from "./db/db";
 import {Collection} from "mongodb";
 import {BlogType} from "./types/db-types";
+import {BlogDtoType} from "../routs/types/types";
 
-class BlogsRepositories {
+export class _BlogsRepositories {
     constructor(private readonly blogsCollection: Collection<BlogType>) {
     }
 
@@ -27,7 +28,7 @@ class BlogsRepositories {
         }
     }
 
-    async createBlog(dto: CreateBlogDtoType): Promise<BlogType | null> {
+    async createBlog(dto: BlogDtoType): Promise<BlogType | null> {
         const newBlog = {
             id: uuid(),
             name: dto.name,
@@ -44,9 +45,9 @@ class BlogsRepositories {
         } else return null;
     }
 
-    async updateBlog(id: string, dto: CreateBlogDtoType): Promise<boolean> {
-        const res = await this.blogsCollection.updateOne({id}, {...dto});
-        if (res.modifiedCount) {
+    async updateBlog(id: string, dto: BlogDtoType): Promise<boolean> {
+        const res = await this.blogsCollection.updateOne({id}, {$set: {...dto}});
+        if (res.matchedCount) {
             return true;
         } else {
             return false;
@@ -63,4 +64,4 @@ class BlogsRepositories {
     }
 }
 
-export default new BlogsRepositories(blogsCollection);
+export default new _BlogsRepositories(blogsCollection);

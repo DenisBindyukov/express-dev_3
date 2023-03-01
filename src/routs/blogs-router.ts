@@ -6,6 +6,7 @@ import {
     inputValidationMiddleware,
     nameValidation, websiteUrlValidation
 } from "../middlewares/input-validation-middleware";
+import {BlogDtoType} from "./types/types";
 
 export const blogsRouter = Router({});
 
@@ -16,14 +17,14 @@ blogsRouter.get('/', async (req: Request, res: Response) => {
 
 blogsRouter.get('/:id',
     async (req: Request, res: Response) => {
-    const blog = await BlogsRepositories.getBlogById(req.params.id);
-    if (blog) {
-        res.status(200).send(blog);
-    } else {
-        res.status(404).send();
-    }
+        const blog = await BlogsRepositories.getBlogById(req.params.id);
+        if (blog) {
+            res.status(200).send(blog);
+        } else {
+            res.status(404).send();
+        }
 
-});
+    });
 
 
 blogsRouter.post('/',
@@ -32,8 +33,8 @@ blogsRouter.post('/',
     descriptionValidation,
     websiteUrlValidation,
     inputValidationMiddleware,
-    async (req: Request<{}, {}, CreateBlogDtoType>, res: Response) => {
-        const newBlog = await BlogsRepositories.createBlog(req.body)
+    async (req: Request<{}, {}, BlogDtoType>, res: Response) => {
+        const newBlog = await BlogsRepositories.createBlog(req.body);
         res.status(201).send(newBlog)
     });
 
@@ -47,7 +48,7 @@ blogsRouter.put('/:id',
         const updatedBlog = await BlogsRepositories.updateBlog(req.params.id, req.body)
         if (updatedBlog) {
             res.status(204).send()
-        }  else {
+        } else {
             res.status(404).send()
         }
     });

@@ -1,33 +1,71 @@
 import {Request, Response, Router} from "express";
+import {PostDtoType} from "./types/types";
+import PostsRepositories from "../repositories/posts-repositories";
+import {auth} from "../middlewares/authMiddleware";
+import {
+    blogIdValidation,
+    contentValidation, inputValidationMiddleware,
+    shortDescriptionValidation,
+    titleValidation
+} from "../middlewares/input-validation-middleware";
 
 export const postsRouter = Router({});
 
-interface ReqBodyType {
-    title: string
-    author: string
-    canBeDownloaded: any
-    minAgeRestriction: number
-    publicationDate: any
-    availableResolutions: string[]
-}
-
-postsRouter.get('/', (req: Request, res: Response) => {
+postsRouter.get('/', async (req: Request, res: Response) => {
+    const posts = await PostsRepositories.getPosts();
+    res.send(posts)
 });
 
-postsRouter.get('/:id', (req: Request, res: Response) => {
-});
+postsRouter.get('/:id',
+    async (req: Request, res: Response) => {
+        const post = await PostsRepositories.getPost(req.params.id);
+        if (post) {
+            res.send(post);
+            return
+        }
+
+        res.status(404).send()
+    });
 
 
-postsRouter.post('/', (req: Request<{}, {}, ReqBodyType>, res: Response) => {
-});
+postsRouter.post('/',
+    auth,
+    titleValidation,
+    shortDescriptionValidation,
+    contentValidation,
+    blogIdValidation,
+    inputValidationMiddleware,
+    async (req: Request<{}, {}, PostDtoType>, res: Response) => {
+        const post = await PostsRepositories.createPost(req.body);
+        if (post) res.status(201).send(post);
+        else res.status(404).send('Blog not found');
+    });
 
-postsRouter.put('/:id', (req: Request<{ id: string }, {}, ReqBodyType>, res: Response) => {
-    console.log(req.body)
-    res.status(204).send('OK')
-});
+postsRouter.put('/:id',
+    auth,
+    // titleValidation,
+    // shortDescriptionValidation,
+    // contentValidation,
+    // blogIdValidation,
+    // inputValidationMiddleware,
+    async (req: Request, res: Response) => {
+        console.log('RENDER')
+        const postWasUpdated = await PostsRepositories.updatePost(req.params.id, req.body);
+        if (postWasUpdated) {
+            res.status(204).send();
+        } else {
+            res.status(404).send();
+        }
+    });
 
 
-postsRouter.delete('/:id', (req: Request<{ id: string }>, res: Response) => {
-
-    res.status(204).send()
-});
+postsRouter.delete('/:id',
+    auth,
+    async (req: Request<{ id: string }>, res: Response) => {
+        const postWasDelete = await PostsRepositories.deletePost(req.params.id);
+        if (postWasDelete) {
+            res.status(204).send()
+        } else {
+            res.status(404).send()
+        }
+    });

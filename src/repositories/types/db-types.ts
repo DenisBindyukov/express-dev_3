@@ -6,3 +6,13 @@ export interface BlogType {
     createdAt: Date,
     isMembership: boolean
 }
+
+export interface PostType {
+    id: string,
+    title: string,
+    shortDescription: string,
+    content: string,
+    blogId: string,
+    blogName: string,
+    createdAt: Date
+}

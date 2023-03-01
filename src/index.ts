@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {blogsRouter} from "./routs/blogs-router";
 import {testingRouter} from "./routs/testing-alll-data";
-import {runDb} from "./repositories/db";
+import {runDb} from "./repositories/db/db";
 import {postsRouter} from "./routs/posts-router";
 
 
