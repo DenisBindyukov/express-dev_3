@@ -71,6 +71,16 @@ class PostsRepositories {
         }
     }
 
+    async clearCluster(): Promise<boolean> {
+        try {
+            await this.postsCollection.deleteMany({})
+            return true
+        } catch (e) {
+            console.log(e)
+            return false
+        }
+
+    }
 }
 
 export default new PostsRepositories(postsCollection, BlogsRepositories)

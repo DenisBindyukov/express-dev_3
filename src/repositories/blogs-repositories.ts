@@ -62,6 +62,17 @@ export class _BlogsRepositories {
             return false;
         }
     }
+
+    async clearCluster(): Promise<boolean> {
+        try {
+            await this.blogsCollection.deleteMany({})
+            return true
+        } catch (e) {
+            console.log(e)
+            return false
+        }
+
+    }
 }
 
 export default new _BlogsRepositories(blogsCollection);
