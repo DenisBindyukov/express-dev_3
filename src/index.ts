@@ -16,11 +16,16 @@ app.use('/posts', postsRouter);
 app.use('/testing', testingRouter);
 
 const startApp = async () => {
-    await runDb()
-    console.log('PORT: ', port)
-    app.listen(port, () => {
-        console.log(`App listening on port ${port}`);
-    })
+    try {
+        await runDb()
+        console.log('PORT: ', port)
+        app.listen(port, () => {
+            console.log(`App listening on port ${port}`);
+        })
+    } catch (e) {
+        console.log('Some error')
+        console.log(e)
+    }
 }
 
 startApp()
