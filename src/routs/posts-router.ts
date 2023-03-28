@@ -43,11 +43,11 @@ postsRouter.post('/',
 
 postsRouter.put('/:id',
     auth,
-     titleValidation,
-    shortDescriptionValidation,
-    contentValidation,
-    blogIdValidation,
-    inputValidationMiddleware,
+    //  titleValidation,
+    // shortDescriptionValidation,
+    // contentValidation,
+    // blogIdValidation,
+    // inputValidationMiddleware,
     async (req: Request, res: Response) => {
         const postWasUpdated = await PostsRepositories.updatePost(req.params.id, req.body);
         if (postWasUpdated) {
