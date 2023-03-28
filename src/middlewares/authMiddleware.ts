@@ -6,8 +6,7 @@ const credentials = {
 }
 
 let data = `${credentials.login}:${credentials.password}`;
-let buff = new Buffer(data);
-let base64data = buff.toString('base64');
+let base64data =  Buffer.from(data, 'utf-8').toString('base64');
 
 export let auth = (req: Request, res: Response, next: NextFunction) => {
     let authHeader = req.headers.authorization;
