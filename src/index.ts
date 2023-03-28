@@ -18,7 +18,7 @@ app.use('/testing/all-data', testingRouter);
 const startApp = async () => {
     await runDb()
     console.log('PORT: ', port)
-    app.listen(port,  () => {
+    app.listen(port, () => {
         console.log(`App listening on port ${port}`);
     })
 }
