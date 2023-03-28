@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
 import {MongoClient} from 'mongodb'
 import {BlogType, PostType} from "../types/db-types";
 
@@ -9,7 +9,7 @@ const mongoUri = process.env.MONGO_URL || '';
 export const client = new MongoClient(mongoUri);
 
 //Name db "blogger-platform"
-const db = client.db('blogger-platform');
+const db = client.db();
 //Name collection "blogs" and "posts"
 export const blogsCollection = db.collection<BlogType>('blogs');
 export const postsCollection = db.collection<PostType>('posts');
