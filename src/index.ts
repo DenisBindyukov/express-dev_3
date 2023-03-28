@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import {blogsRouter} from "./routs/blogs-router";
 import {runDb} from "./repositories/db/db";
 import {postsRouter} from "./routs/posts-router";
+import {testingRouter} from "./routs/testing-alll-data";
 
 
 //test
@@ -14,7 +15,7 @@ app.use(jsonParserMiddleware);
 
 app.use('/blogs', blogsRouter);
 app.use('/posts', postsRouter);
-// app.use('/testing', testingRouter);
+app.use('/testing', testingRouter);
 
 const startApp = async () => {
     try {
@@ -24,7 +25,6 @@ const startApp = async () => {
             console.log(`App listening on port ${port}`);
         })
     } catch (e) {
-        console.log('Some error')
         console.log(e)
     }
 }
