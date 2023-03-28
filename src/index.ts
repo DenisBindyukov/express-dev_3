@@ -5,8 +5,6 @@ import {testingRouter} from "./routs/testing-alll-data";
 import {runDb} from "./repositories/db/db";
 import {postsRouter} from "./routs/posts-router";
 
-//test
-
 const app = express();
 const port = process.env.PORT || 5002;
 
