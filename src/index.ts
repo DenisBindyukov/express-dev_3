@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {blogsRouter} from "./routs/blogs-router";
 import {runDb} from "./repositories/db/db";
+import {postsRouter} from "./routs/posts-router";
 
 
 //test
@@ -12,7 +13,7 @@ const jsonParserMiddleware = bodyParser.json();
 app.use(jsonParserMiddleware);
 
 app.use('/blogs', blogsRouter);
-// app.use('/posts', postsRouter);
+app.use('/posts', postsRouter);
 // app.use('/testing', testingRouter);
 
 const startApp = async () => {
