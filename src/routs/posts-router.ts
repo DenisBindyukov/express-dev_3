@@ -4,7 +4,8 @@ import PostsRepositories from "../repositories/posts-repositories";
 import {auth} from "../middlewares/authMiddleware";
 import {
     blogIdValidation,
-    contentValidation, inputValidationMiddleware,
+    contentValidation,
+    inputValidationMiddleware,
     shortDescriptionValidation,
     titleValidation
 } from "../middlewares/input-validation-middleware";
@@ -30,10 +31,10 @@ postsRouter.get('/:id',
 
 postsRouter.post('/',
     auth,
+    blogIdValidation,
     titleValidation,
     shortDescriptionValidation,
     contentValidation,
-    blogIdValidation,
     inputValidationMiddleware,
     async (req: Request<{}, {}, PostDtoType>, res: Response) => {
         const post = await PostsRepositories.createPost(req.body);
@@ -43,10 +44,10 @@ postsRouter.post('/',
 
 postsRouter.put('/:id',
     auth,
+    blogIdValidation,
     titleValidation,
     shortDescriptionValidation,
     contentValidation,
-    blogIdValidation,
     inputValidationMiddleware,
     async (req: Request, res: Response) => {
         const postWasUpdated = await PostsRepositories.updatePost(req.params.id, req.body);
