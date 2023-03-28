@@ -35,7 +35,7 @@ export class _BlogsRepositories {
             description: dto.description,
             websiteUrl: dto.websiteUrl,
             createdAt: new Date(),
-            isMembership: true
+            isMembership: false
         }
 
         await this.blogsCollection.insertOne(newBlog);
