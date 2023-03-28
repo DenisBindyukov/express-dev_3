@@ -43,13 +43,12 @@ postsRouter.post('/',
 
 postsRouter.put('/:id',
     auth,
-    // titleValidation,
-    // shortDescriptionValidation,
-    // contentValidation,
-    // blogIdValidation,
-    // inputValidationMiddleware,
+     titleValidation,
+    shortDescriptionValidation,
+    contentValidation,
+    blogIdValidation,
+    inputValidationMiddleware,
     async (req: Request, res: Response) => {
-        console.log('RENDER')
         const postWasUpdated = await PostsRepositories.updatePost(req.params.id, req.body);
         if (postWasUpdated) {
             res.status(204).send();
