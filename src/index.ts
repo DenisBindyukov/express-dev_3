@@ -13,7 +13,7 @@ app.use(jsonParserMiddleware);
 
 app.use('/blogs', blogsRouter);
 app.use('/posts', postsRouter);
-app.use('/testing/all-data', testingRouter);
+app.use('/testing', testingRouter);
 
 const startApp = async () => {
     await runDb()
