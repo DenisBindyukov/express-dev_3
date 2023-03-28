@@ -6,7 +6,7 @@ const credentials = {
 }
 
 let data = `${credentials.login}:${credentials.password}`;
-let base64data =  Buffer.from(data, 'utf-8').toString('base64');
+// let base64data =  Buffer.from(data, 'utf-8').toString('base64');
 
 export let auth = (req: Request, res: Response, next: NextFunction) => {
     let authHeader = req.headers.authorization;
@@ -14,7 +14,7 @@ export let auth = (req: Request, res: Response, next: NextFunction) => {
         res.send(401)
         return
     }
-    if (authHeader && authHeader === `Basic ${base64data}`) {
+    if (authHeader && authHeader === `Basic YWRtaW46cXdlcnR5`) {
         next();
     } else {
         res.send(401)
